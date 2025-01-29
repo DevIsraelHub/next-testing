@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const EmbedCode = () => {
-  const embedCode = `<script src="https://yourdomain.com/api/embed" async></script>`;
+  const embedCode = `<script src="https://next-testing-three-kappa.vercel.app/api/embed" async></script>`;
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
