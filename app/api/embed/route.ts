@@ -4,7 +4,7 @@ export async function GET() {
   const script = `
     (function() {
       var iframe = document.createElement('iframe');
-      iframe.src = "https://yourdomain.com/embed-content";
+      iframe.src = "https://next-testing-three-kappa.vercel.app/embed-content";
       iframe.style.border = "none";
       iframe.style.width = "100%";
       iframe.style.height = "200px"; // Adjust as needed
