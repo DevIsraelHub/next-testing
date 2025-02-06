@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,12 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-      </head> */}
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+
+        {/* <script src="https://v0-next-testing-pwaxyo.vercel.app/embed.js" data-embed-id="default-embed-id"></script> */}
+        <Script src="https://v0-next-testing-pwaxyo.vercel.app/embed.js" data-embed-id="default-embed-id" />
       </body>
     </html>
   );
