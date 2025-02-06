@@ -1,27 +1,49 @@
 "use client"
 
 import { useState } from "react"
-import { Textarea } from "@/components/ui/textarea"
-import { Toaster } from "@/components/ui/toaster"
-import { AIAssistant } from "@/components/AIAssistance"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import PreviewModal from "@/components/preview-modal"
+import { toast } from "@/hooks/use-toast"
 
-export default function Page() {
-  const [description, setDescription] = useState("")
+export default function EmbedScriptGenerator() {
+  const [showPreview, setShowPreview] = useState(false)
+  const [embedId, setEmbedId] = useState("default-embed-id")
 
+  const embedCode = `<script src="https://v0-next-testing-pwaxyo.vercel.app/embed.js" data-embed-id="${embedId}"></script>`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(embedCode).then(
+      () => {
+        toast({
+          title: "Copied!",
+          description: "Embed code copied to clipboard",
+        })
+      },
+      (err) => {
+        console.error("Could not copy text: ", err)
+      },
+    )
+  }
 
   return (
-    <div className="max-w-2xl mt-[20vh] mx-auto p-4">
-      <div className="relative">
-        <Textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Describe your website project..."
-          className="min-h-[200px]"
-        />
-        <AIAssistant content={description} onUpdate={setDescription} position={"right-[-410px] bottom-0"} />
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Embed Script Generator</h1>
+      <div className="mb-4">
+        <Label htmlFor="embed-id">Embed ID</Label>
+        <Input id="embed-id" value={embedId} onChange={(e) => setEmbedId(e.target.value)} className="mt-1" />
       </div>
-      <Toaster />
+      <div className="bg-gray-100 p-4 rounded-md mb-4">
+        <pre className="whitespace-pre-wrap break-all">{embedCode}</pre>
+      </div>
+      <div className="flex space-x-2">
+        <Button onClick={copyToClipboard}>Copy Embed Code</Button>
+        <Button variant="outline" onClick={() => setShowPreview(true)}>
+          Preview
+        </Button>
+      </div>
+      <PreviewModal isOpen={showPreview} onClose={() => setShowPreview(false)} embedCode={embedCode} />
     </div>
   )
 }
-
